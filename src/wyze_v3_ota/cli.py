@@ -8,6 +8,7 @@ from pathlib import Path
 
 from . import __version__
 from .backup import fetch_backup, verify_backup
+from .bundle import build_ctf_kit
 from .image import (
     build_thingino_payload,
     patch_wifi,
@@ -119,6 +120,21 @@ def _parser() -> argparse.ArgumentParser:
         "hash", help="print size, MD5 and SHA-256 for a file"
     )
     hash_parser.add_argument("file", type=Path)
+
+    kit_parser = commands.add_parser(
+        "build-ctf-kit",
+        help="build a self-contained offline CTF kit",
+    )
+    kit_parser.add_argument("--image", type=Path, required=True)
+    kit_parser.add_argument("--cert", type=Path, required=True)
+    kit_parser.add_argument("--key", type=Path, required=True)
+    kit_parser.add_argument("--out-dir", type=Path, required=True)
+    kit_parser.add_argument("--ssid", default="")
+    kit_parser.add_argument("--psk", default="")
+    kit_parser.add_argument("--callback-url", default="")
+    kit_parser.add_argument("--ca-cert", type=Path)
+    kit_parser.add_argument("--ca-key", type=Path)
+    kit_parser.add_argument("--archive", action="store_true")
     return parser
 
 
@@ -272,6 +288,23 @@ def _run(args: argparse.Namespace) -> int:
                 "md5": md5_file(args.file),
                 "sha256": sha256_file(args.file),
             }
+        )
+        return 0
+
+    if args.command == "build-ctf-kit":
+        _print_json(
+            build_ctf_kit(
+                args.out_dir,
+                args.image,
+                args.cert,
+                args.key,
+                ssid=args.ssid,
+                psk=args.psk,
+                callback_url=args.callback_url,
+                ca_cert=args.ca_cert,
+                ca_key=args.ca_key,
+                archive=args.archive,
+            )
         )
         return 0
 

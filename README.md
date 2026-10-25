@@ -63,6 +63,40 @@ pip install -e .
 Patching WiFi credentials inside the Thingino SquashFS additionally requires
 `unsquashfs` and `mksquashfs`.
 
+## Offline CTF kit
+
+Build a directory or `tar.gz` that runs directly from its bundled source tree,
+without pip or network downloads:
+
+```bash
+wyze-v3-ota build-ctf-kit \
+  --image /path/to/thingino.bin \
+  --cert /secure/path/fullchain.pem \
+  --key /secure/path/leaf.key \
+  --ssid "Legacy" \
+  --psk "your-wifi-password" \
+  --ca-cert /secure/path/ca-cert.pem \
+  --ca-key /secure/path/ca-key.pem \
+  --out-dir /secure/offline/wyze-v3-ota-ctf-kit \
+  --archive
+```
+
+The kit contains:
+
+- a runnable copy of the Python package and `bin/wyze-v3-ota`;
+- the prepared 16 MiB Thingino image;
+- diagnostic and flash tars;
+- `autoupdate-full.bin`;
+- the complete leaf certificate chain and leaf key;
+- optional CA certificate/key material under `pki/ca`;
+- a quick-start file and hash manifest.
+
+The CA private key is not needed for this fixed-hostname workflow. The leaf
+chain and leaf key perform both HTTPS and MQTT TLS. The optional CA material is
+for issuing additional leaf certificates for other authorized hostnames. Keep
+the resulting kit private because it contains TLS private keys and firmware
+with embedded WiFi credentials.
+
 ## Quick start
 
 ### 1. Prepare the image and payloads
