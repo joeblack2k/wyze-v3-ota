@@ -33,8 +33,10 @@ The tool therefore:
 - flashes `cfg`, `oem`, `rootfs`, `rback`, `fit`, and finally `boot`;
 - provides an `autoupdate-full.bin` soft-brick recovery image.
 
-The tool does **not** contain account tokens, WiFi credentials, certificate
-private keys, device backups, or a prebuilt firmware image.
+The source repository does **not** contain account tokens, WiFi credentials,
+certificate private keys, device backups, or a prebuilt firmware image.
+Certificate-chain material used by the verified lab workflow is published
+under `pki/public/` for inspection only.
 
 ## Verified stock layout
 
@@ -73,8 +75,8 @@ wyze-v3-ota build-ctf-kit \
   --image /path/to/thingino.bin \
   --cert /secure/path/fullchain.pem \
   --key /secure/path/leaf.key \
-  --ssid "Legacy" \
-  --psk "your-wifi-password" \
+  --ssid "YOUR_SSID" \
+  --psk "YOUR_WIFI_PASSWORD" \
   --ca-cert /secure/path/ca-cert.pem \
   --ca-key /secure/path/ca-key.pem \
   --out-dir /secure/offline/wyze-v3-ota-ctf-kit \
@@ -105,8 +107,8 @@ with embedded WiFi credentials.
 wyze-v3-ota prepare \
   --image /path/to/thingino-wyze_campan3_t31x_gc2053_atbm6031.bin \
   --build-dir build \
-  --ssid "Legacy" \
-  --psk "your-wifi-password"
+  --ssid "YOUR_SSID" \
+  --psk "YOUR_WIFI_PASSWORD"
 ```
 
 This produces:

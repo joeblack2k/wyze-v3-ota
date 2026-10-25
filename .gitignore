@@ -11,6 +11,8 @@ dist/
 *.key
 *.json
 !examples/config.example.json
+!pki/public/
+!pki/public/*.pem
 backups/
 /payloads/
 logs/
