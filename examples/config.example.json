@@ -1,0 +1,11 @@
+{
+  "public_host": "wyze-firmware-upgrade-service.wyzecam.com",
+  "mqtt_tls_port": 8883,
+  "https_port": 8443,
+  "admin_port": 8884,
+  "model": "HL_PAN3",
+  "notes": [
+    "Do not commit certificates, keys, WiFi credentials, tokens or backups.",
+    "The certificate chain must already be trusted by the target stock firmware."
+  ]
+}

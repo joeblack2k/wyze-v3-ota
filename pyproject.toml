@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wyze-v3-ota"
+version = "0.1.0"
+description = "Authorized OTA lab tooling for Wyze Cam Pan v3 / Thingino"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "wyze-v3-ota contributors"}]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: POSIX :: Linux",
+]
+
+[project.scripts]
+wyze-v3-ota = "wyze_v3_ota.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+wyze_v3_ota = ["payloads/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
