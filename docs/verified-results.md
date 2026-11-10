@@ -16,6 +16,23 @@ Verified on both cameras:
 - The main RTSP stream is H.264 1920x1080.
 - The main RTSP stream includes AAC audio.
 
+## Additional field report: stock 4.50.15.4800
+
+One additional Pan v3 was installed using tool version 0.3.0 (`f51054d`), a
+macOS host, a TP-Link Deco AXE5400 network, and a master-branch image
+(`6a6e401`). The standard upgrade command and known stock MTD layout worked.
+All six stock partitions matched across two independent reads before flashing.
+
+Post-install verification covered SSH, the web UI, H.264 streams at 1920x1080
+and 640x360 with AAC audio, pan/tilt movement, full homing, and a normal reboot.
+The movement and reboot checks passed on wall power after resets were observed
+while using a USB hub.
+
+See [the field report](pan-v3-4.50.15.4800-field-report.md) for the fixed-DNS
+configuration found in the matching stock recovery image and the network setup
+needed to reach the local broker. This report covers one additional device;
+it is not a guarantee for other hardware or stock firmware versions.
+
 ## Backup verification
 
 For each camera, all six stock MTD partitions were read twice:
