@@ -101,6 +101,12 @@ with embedded WiFi credentials.
 
 ## Quick start
 
+Pan v3 firmware must be built for
+`wyze_campan3_t31x_gc2053_atbm6031` from the current `master` branch using
+[Thingino Image Builder](https://image-builder.thingino.com/). See the
+[Thingino camera notes](https://github.com/themactep/thingino-firmware/wiki/Camera:-Hualai-(Wyze,-Atom,-Neos,-Personal))
+for the secure-boot requirements; an ordinary release image is not interchangeable.
+
 ### 1. Prepare the image and payloads
 
 ```bash
@@ -148,6 +154,12 @@ Redirect these names to the lab host at the DNS/router layer:
 
 Allow the camera to reach TCP `8883` and `8443` on the lab host.
 
+On stock firmware **4.50.15.4800**, changing the DHCP-provided DNS server alone
+did not redirect the camera: its bundled `dnsmasq` configuration ignores
+`resolv.conf` and queries four fixed public resolvers. See the
+[additional field report](docs/pan-v3-4.50.15.4800-field-report.md) for the
+verified Deco/macOS network setup, updater timing, and cleanup requirements.
+
 ### 3. Confirm the broker session
 
 ```bash
@@ -179,6 +191,10 @@ wyze-v3-ota verify-backup \
 The backup command reads every partition twice through independent paths,
 compares the bytes, reconstructs a 16 MiB image, and stores a manifest.
 
+Allow the stock updater time to prepare the diagnostic. In the additional
+4.50.15.4800 test, the first payload request arrived about 98 seconds after the
+upgrade command. A temporarily closed MQTT session alone did not indicate failure.
+
 ### 5. Flash Thingino
 
 ```bash
@@ -204,6 +220,11 @@ Default post-flash access:
 - RTSP: `rtsp://thingino:thingino@CAMERA_IP/ch0`
 - RTSP: `rtsp://thingino:thingino@CAMERA_IP/ch1`
 - Web UI: `http://CAMERA_IP/`
+
+Use a suitable dedicated power supply for post-install motor tests. One additional
+unit reset during movement on a USB hub but passed pan/tilt, full homing, and a
+normal reboot after switching to wall power. See the field report for the scope
+of that observation.
 
 ## Soft-brick recovery
 
